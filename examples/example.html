@@ -1,0 +1,67 @@
+<html>
+<head>
+
+<style type="text/css">
+body {
+	background-color:#eee;
+}
+
+pre, hr, p {
+	margin:0 auto 30px;
+	max-width:480px;
+	width:95%;
+}
+
+h1 {
+	font-family:arial;
+	font-weight:normal;
+	margin:auto;
+	text-align:center;
+}
+
+.test {
+	background-color:#fff;
+	border:1px dotted #231f20;
+	margin:10px auto;
+	max-width:480px;
+	width:95%;
+}
+</style>
+
+</head>
+<body>
+
+<div class="test default">
+<h1>Inflated,</h1>
+</div>
+<pre><code>$('.default h1').inflateText();</code></pre>
+
+<div class="test scale">
+<h1>scaled to 80%,</h1>
+</div>
+<pre><code>$('.scale h1').inflateText({scale:0.8});</code></pre>
+
+<div class="test min">
+<h1>with minimum font size,</h1>
+</div>
+<pre><code>$('.min h1').inflateText({minFontSize:76});</code></pre>
+
+<div class="test max">
+<h1>..and with maximum font size</h1>
+</div>
+<pre><code>$('.max h1').inflateText({maxFontSize:24});</code></pre>
+
+<hr />
+
+<p>You&rsquo;re looking at <a href="">inflateText.js</a></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="../src/inflateText.js"></script>
+<script>
+$('.default h1').inflateText();
+$('.scale h1').inflateText({scale:0.8});
+$('.min h1').inflateText({minFontSize:76});
+$('.max h1').inflateText({maxFontSize:24});
+</script>
+</body>
+</html>
