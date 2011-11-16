@@ -18,6 +18,10 @@ You may optionally provide a scaling factor using the `scale` argument or set ca
 		scale: 0.8
 	});
 
+###Support
+
+inflateText.js works in Chrome, Firefox, Opera, and IE8+, but please don't hesitate to fork+fix any issues you discover.
+
 ###A cautionary note:
 
 Unless a minimum font size is specified, InflateText will *always* attempt to fit the target text into a single line. Mix long headlines and mobile resolutions only at your own risk!
