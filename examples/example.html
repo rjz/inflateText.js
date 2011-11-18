@@ -1,27 +1,31 @@
 <html>
 <head>
 
+<title>inflateText.js examples</title>
+
+<link href="http://fonts.googleapis.com/css?family=Copse" rel="stylesheet" type="text/css">
 <style type="text/css">
 body {
-	background-color:#eee;
+	background-color:#fff;
+	font-family:georgia, serif;
 }
 
-pre, hr, p {
+.demo, hr, p {
 	margin:0 auto 30px;
-	max-width:480px;
 	width:95%;
 }
 
 h1 {
-	font-family:arial;
+	display:block;
+	font-family:'Copse';
 	font-weight:normal;
 	margin:auto;
 	text-align:center;
 }
 
 .test {
-	background-color:#fff;
-	border:1px dotted #231f20;
+	border:1px dashed #ccc;
+	color:#231f20;
 	margin:10px auto;
 	max-width:480px;
 	width:95%;
@@ -30,6 +34,8 @@ h1 {
 
 </head>
 <body>
+
+<div class="demo">
 
 <div class="test default">
 <h1>Inflated,</h1>
@@ -42,18 +48,20 @@ h1 {
 <pre><code>$('.scale h1').inflateText({scale:0.8});</code></pre>
 
 <div class="test min">
-<h1>with minimum font size,</h1>
+<h1>at least 76px</h1>
 </div>
 <pre><code>$('.min h1').inflateText({minFontSize:76});</code></pre>
 
 <div class="test max">
-<h1>..and with maximum font size</h1>
+<h1>..and no more than 32px</h1>
 </div>
-<pre><code>$('.max h1').inflateText({maxFontSize:24});</code></pre>
+<pre><code>$('.max h1').inflateText({maxFontSize:32});</code></pre>
+
+</div>
 
 <hr />
 
-<p>You&rsquo;re looking at <a href="">inflateText.js</a></p>
+<p>Powered by <a href="https://github.com/rjz/inflateText.js">inflateText.js</a></p>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 <script src="../src/inflateText.js"></script>
@@ -61,7 +69,7 @@ h1 {
 $('.default h1').inflateText();
 $('.scale h1').inflateText({scale:0.8});
 $('.min h1').inflateText({minFontSize:76});
-$('.max h1').inflateText({maxFontSize:24});
+$('.max h1').inflateText({maxFontSize:32});
 </script>
 </body>
 </html>
