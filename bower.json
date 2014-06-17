@@ -1,0 +1,27 @@
+{
+  "name": "inflateText.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/rjz/inflateText.js",
+  "authors": [
+    "rjz <rj@rjzaworski.com>"
+  ],
+  "description": "Scale text to fit space",
+  "main": "src/inflateText.js",
+  "keywords": [
+    "jquery",
+    "text",
+    "inflate",
+    "scale"
+  ],
+  "license": "WTFPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1"
+  }
+}

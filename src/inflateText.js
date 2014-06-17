@@ -1,80 +1,88 @@
 /*global jQuery */
 /**
- *	InflateText.js -- 98% derived from FitText.js (http://fittextjs.com)
- *	
- *	Options
- *	- scale       {Number}	Scaling factor for the final font-size (defaults to 1)
- *	- minFontSize {Number}	
- *	- maxFontSize {Number}	
+ *  InflateText.js -- 98% derived from FitText.js (http://fittextjs.com)
  *
- *	@author	RJ Zaworski <rj@rjzaworski.com
- *	Released under the WTFPL license 
- *	http://sam.zoy.org/wtfpl/
+ *  Options
+ *  - scale       {Number}  Scaling factor for the final font-size (defaults to 1)
+ *  - minFontSize {Number}
+ *  - maxFontSize {Number}
+ *
+ *  @author RJ Zaworski <rj@rjzaworski.com
+ *  Released under the WTFPL license
+ *  http://sam.zoy.org/wtfpl/
  */
 
-(function( $ ){
-	
-	$.fn.inflateText = function(options) {
+(function($) {
 
-		var settings = {
-				'scale'  : 1,
-				'minFontSize' : Number.NEGATIVE_INFINITY,
-				'maxFontSize' : Number.POSITIVE_INFINITY
-			},
-			_debounce = function (callback) {
-				
-				var	handle;
+  var testSize = 96;
 
-				return function() {
+  var defaults = {
+    'scale'  : 1,
+    'minFontSize' : Number.NEGATIVE_INFINITY,
+    'maxFontSize' : Number.POSITIVE_INFINITY
+  };
 
-					var args = Array.prototype.slice.call(arguments, 1),
-						interval = 100,
-						_test = function() {
-							callback.apply({}, args);
-							handle = null;
-						}
+  function _debounce (callback) {
 
-					if (handle) {
-						clearTimeout(handle);
-					}
-					handle = setTimeout(_test, interval);
-				}
-			};
+    var handle;
 
-		return this.each(function(){
+    return function() {
 
-			var $this = $(this),
-				resizer;
+      var args = Array.prototype.slice.call(arguments, 1),
+          interval = 100,
+          _test = function() {
+            callback.apply(this, args);
+            handle = null;
+          };
 
-			if (options) { 
-				$.extend(settings, options);
-			}
+      if (handle) {
+        clearTimeout(handle);
+      }
 
-			// Remix: resize items based on object width divided by the scaling factor
-			resizer = function () {
+      handle = setTimeout(_test, interval);
+    }
+  }
 
-				var mask = $('<div style="height:1px;overflow:hidden;"></div>')
-						.appendTo('body'),
-					test = $this.clone().css({
-							display:'inline',
-							fontSize:'96px'
-						}).appendTo(mask);
+  $.fn.inflateText = function (options) {
 
-				// scale font down to fix IE bug
-				$this.css('font-size','12pt');
-				
-				// update width
-				$this.css('font-size', Math.max(Math.min((settings.scale * 96 * $this.width() / test.width()), parseFloat(settings.maxFontSize)),parseFloat(settings.minFontSize)));
-				
-				// remove test element from DOM
-				mask.remove();
-			}
+    var settings = $.extend({}, defaults, options);
 
-			// Call once to set.
-			resizer();
+    var minSize = parseFloat(settings.minFontSize),
+        maxSize = parseFloat(settings.maxFontSize);
 
-			// Call on resize. Opera debounces their resize by default. 
-			$(window).resize(_debounce(resizer) );
-		});
-	};
-})( jQuery );
+    return this.each(function(){
+
+      var $this = $(this);
+
+      // Remix: resize items based on object width divided by the scaling factor
+      var resizer = function () {
+
+        var mask = $('<div style="height:1px;overflow:hidden;"></div>')
+            .appendTo('body');
+
+        var test = $this.clone().css({
+              display  : 'inline',
+              fontSize : testSize + 'px'
+            }).appendTo(mask);
+
+        var scaledSize = settings.scale * testSize * $this.width() / test.width();
+
+        // scale font down to fix IE bug
+        $this.css('font-size','12pt');
+
+        // update width
+        $this.css('font-size', Math.max(Math.min((scaledSize), maxSize), minSize));
+
+        // remove test element from DOM
+        mask.remove();
+      };
+
+      // Call once to set.
+      resizer();
+
+      // Call on resize. Opera debounces their resize by default.
+      $(window).resize(_debounce(resizer));
+    });
+  };
+})(jQuery);
+

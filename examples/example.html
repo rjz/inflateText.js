@@ -6,29 +6,35 @@
 <link href="http://fonts.googleapis.com/css?family=Copse" rel="stylesheet" type="text/css">
 <style type="text/css">
 body {
-	background-color:#fff;
-	font-family:georgia, serif;
+  background-color:#fff;
+  color: #231f20;
+  font-family:georgia, serif;
 }
 
 .demo, hr, p {
-	margin:0 auto 30px;
-	width:95%;
+  margin:0 auto 30px;
+  width:95%;
 }
 
 h1 {
-	display:block;
-	font-family:'Copse';
-	font-weight:normal;
-	margin:auto;
-	text-align:center;
+  display:block;
+  font-family:'Copse';
+  font-weight:normal;
+  margin:auto;
+  text-align:center;
 }
 
 .test {
-	border:1px dashed #ccc;
-	color:#231f20;
-	margin:10px auto;
-	max-width:480px;
-	width:95%;
+  border:1px dotted #231f20;
+  color:#231f20;
+  margin:10px auto;
+  max-width:480px;
+  width:95%;
+}
+
+hr {
+  border: none;
+  border-top: 1px dotted #231f20;
 }
 </style>
 
@@ -63,8 +69,10 @@ h1 {
 
 <p>Powered by <a href="https://github.com/rjz/inflateText.js">inflateText.js</a></p>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script>document.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"><\/script>');</script>
 <script src="../src/inflateText.js"></script>
+
 <script>
 $('.default h1').inflateText();
 $('.scale h1').inflateText({scale:0.8});
