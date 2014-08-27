@@ -1,6 +1,6 @@
 {
   "name": "inflateText.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/rjz/inflateText.js",
   "authors": [
     "rjz <rj@rjzaworski.com>"
@@ -22,6 +22,6 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.1"
+    "jquery": "~1.11.1"
   }
 }
