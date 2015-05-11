@@ -6,7 +6,7 @@
     "rjz <rj@rjzaworski.com>"
   ],
   "description": "Scale text to fit space",
-  "main": "src/inflateText.js",
+  "main": "inflateText.js",
   "keywords": [
     "jquery",
     "text",
