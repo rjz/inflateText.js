@@ -82,7 +82,7 @@ require(['../inflateText.js'], function (inflateText) {
       </code></pre>
       <script>
       window.addEventListener('load', function () {
-        require(['../inflateText.js'], function (inflateText) {
+        require(['./inflateText.js'], function (inflateText) {
           inflateText(document.querySelector('.amd-default h1'));
         });
       });
@@ -97,9 +97,8 @@ require(['../inflateText.js'], function (inflateText) {
 
   </div><!-- .content -->
 
-  <script src="../bower_components/jquery/dist/jquery.js"></script>
-  <script>document.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"><\/script>');</script>
-  <script src="../jquery.inflateText.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+  <script src="./jquery.inflateText.js"></script>
 
   <script>
   $('.default h1').inflateText();
@@ -108,8 +107,7 @@ require(['../inflateText.js'], function (inflateText) {
   $('.max h1').inflateText({maxFontSize:32});
   </script>
 
-  <script src="../bower_components/requirejs/require.js"></script>
-  <script>window.define || document.write('<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.js>');</script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.js"></script>
 
 </body>
 </html>
