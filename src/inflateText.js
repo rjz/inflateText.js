@@ -1,6 +1,5 @@
-/*global jQuery */
 /**
- *  InflateText.js -- 98% derived from FitText.js (http://fittextjs.com)
+ *  InflateText.js -- 95% derived from FitText.js (http://fittextjs.com)
  *
  *  Options
  *  - scale       {Number}  Scaling factor for the final font-size (defaults to 1)
@@ -12,77 +11,99 @@
  *  http://sam.zoy.org/wtfpl/
  */
 
-(function($) {
+var TEST_SIZE = 96; // An arbitrary size to scale to when testing new font width
 
-  var testSize = 96;
+var defaults = {
+  'scale'       : 1,
+  'minFontSize' : Number.NEGATIVE_INFINITY,
+  'maxFontSize' : Number.POSITIVE_INFINITY
+};
 
-  var defaults = {
-    'scale'  : 1,
-    'minFontSize' : Number.NEGATIVE_INFINITY,
-    'maxFontSize' : Number.POSITIVE_INFINITY
-  };
-
-  function _debounce (callback) {
-
-    var handle;
-
-    return function() {
-
-      var args = Array.prototype.slice.call(arguments, 1),
-          interval = 100,
-          _test = function() {
-            callback.apply(this, args);
-            handle = null;
-          };
-
-      if (handle) {
-        clearTimeout(handle);
+function _extend (obj) {
+  [].slice.call(arguments, 1).forEach(function (source) {
+    if (source) {
+      for (k in source) {
+        obj[k] = source[k];
       }
-
-      handle = setTimeout(_test, interval);
     }
+  });
+  return obj;
+}
+
+function _debounce (callback, interval) {
+
+  var handle;
+
+  return function () {
+
+    var args = [].slice.call(arguments, 0);
+
+    if (handle) {
+      clearTimeout(handle);
+    }
+
+    handle = setTimeout(function() {
+      callback.apply(this, args);
+      handle = null;
+    }, interval);
   }
+}
 
-  $.fn.inflateText = function (options) {
+function _scalingFactor (el) {
 
-    var settings = $.extend({}, defaults, options);
+  var scalingFactor,
+      maskEl = document.createElement('div'),
+      testEl = el.cloneNode(true);
 
-    var minSize = parseFloat(settings.minFontSize),
-        maxSize = parseFloat(settings.maxFontSize);
+  _extend(maskEl.style, {
+    height: '1px',
+    overflow: 'hidden'
+  });
 
-    return this.each(function(){
+  _extend(testEl.style, {
+    display: 'inline',
+    fontSize: TEST_SIZE + 'px'
+  });
 
-      var $this = $(this);
+  maskEl.appendChild(testEl);
+  document.body.appendChild(maskEl);
 
-      // Remix: resize items based on object width divided by the scaling factor
-      var resizer = function () {
+  scalingFactor = TEST_SIZE / testEl.offsetWidth;
 
-        var mask = $('<div style="height:1px;overflow:hidden;"></div>')
-            .appendTo('body');
+  document.body.removeChild(maskEl);
 
-        var test = $this.clone().css({
-              display  : 'inline',
-              fontSize : testSize + 'px'
-            }).appendTo(mask);
+  return scalingFactor;
+}
 
-        var scaledSize = settings.scale * testSize * $this.width() / test.width();
+module.exports = function (el, options) {
 
-        // scale font down to fix IE bug
-        $this.css('font-size','12pt');
+  var maxSize, minSize;
 
-        // update width
-        $this.css('font-size', Math.max(Math.min((scaledSize), maxSize), minSize));
+  var settings = {};
 
-        // remove test element from DOM
-        mask.remove();
-      };
+  if (!options) options = {};
 
-      // Call once to set.
-      resizer();
+  _extend(settings, defaults, options);
 
-      // Call on resize. Opera debounces their resize by default.
-      $(window).resize(_debounce(resizer));
-    });
+  minSize = parseFloat(settings.minFontSize),
+  maxSize = parseFloat(settings.maxFontSize);
+
+  // Remix: resize items based on object width divided by the scaling factor
+  var resizer = function () {
+
+    var scaledSize = settings.scale * el.offsetWidth * _scalingFactor(el);
+
+    // scale font down to fix IE bug
+    el.style.fontSize = '12pt';
+
+    // update width
+    el.style.fontSize = Math.max(Math.min((scaledSize), maxSize), minSize) + 'px';
   };
-})(jQuery);
+
+  // Call once to set.
+  resizer();
+
+  // Call on resize. Opera debounces their resize by default.
+  window.addEventListener('resize', _debounce(resizer, 100));
+};
 

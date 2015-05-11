@@ -16,22 +16,36 @@ InflateText is available on bower:
 Usage
 -----
 
-Invoke inflateText as any other jQuery plugin:
+### via UMD
 
-	$('h1').inflateText();
+    <script>
+    require(['./inflateText'], function (inflateText) {
+      inflateText(document.querySelector('h1.my-title'), {
+        scale: 0.8
+      });
+    });
+    </script>
 
-You may optionally provide a scaling factor using the `scale` argument or set
-caps on the font size:
+### As a jQuery plugin
 
-	$('h1').inflateText({
-		maxFontSize: 96, //(px)
-		minFontSize: 32, //(px)
-		scale: 0.8
-	});
+`inflateText` has historically been packaged as a `jQuery` plugin. For
+convenience, a (legacy) shim is provided. Include it, and invoke `inflateText`
+as any other jQuery plugin:
+
+    <script src="jquery.inflateText.js"></script>
+    <script>
+    $('.default h1').inflateText();
+    </script>
+
+### Options
+
+		maxFontSize: 96, // px
+		minFontSize: 32, // px
+		scale: 0.8       // 0..1
 
 ###Support
 
-inflateText.js works in Chrome, Firefox, Opera, and IE8+, but please don't
+inflateText.js works in Chrome, Firefox, Opera, and IE9+, but please don't
 hesitate to fork+fix any issues you discover.
 
 ###A cautionary note:

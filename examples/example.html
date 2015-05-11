@@ -3,81 +3,113 @@
 
 <title>inflateText.js examples</title>
 
-<link href="http://fonts.googleapis.com/css?family=Copse" rel="stylesheet" type="text/css">
-<style type="text/css">
-body {
-  background-color:#fff;
-  color: #231f20;
-  font-family:georgia, serif;
-}
+<link href="screen.css" rel="stylesheet" />
 
-.demo, hr, p {
-  margin:0 auto 30px;
-  width:95%;
-}
-
-h1 {
-  display:block;
-  font-family:'Copse';
-  font-weight:normal;
-  margin:auto;
-  text-align:center;
-}
-
+<style>
 .test {
-  border:1px dotted #231f20;
-  color:#231f20;
-  margin:10px auto;
-  max-width:480px;
-  width:95%;
+  background-color: #231f20;
+  padding: 50px;
+}
+.test h1 {
+  color: #fff;
+  line-height:1.0em;
+  margin:0;
+  text-align:left;
 }
 
-hr {
-  border: none;
-  border-top: 1px dotted #231f20;
+.test h1 * {
+  display: block;
+  line-height:1.3em;
 }
 </style>
 
 </head>
 <body>
 
-<div class="demo">
+  <div class="content">
 
-<div class="test default">
-<h1>Inflated,</h1>
-</div>
-<pre><code>$('.default h1').inflateText();</code></pre>
+    <section class="container">
+      <h1>Examples</h1>
+    </section>
 
-<div class="test scale">
-<h1>scaled to 80%,</h1>
-</div>
-<pre><code>$('.scale h1').inflateText({scale:0.8});</code></pre>
+    <section class="container">
 
-<div class="test min">
-<h1>at least 76px</h1>
-</div>
-<pre><code>$('.min h1').inflateText({minFontSize:76});</code></pre>
+      <div class="test default">
+      <h1>Inflated,</h1>
+      </div>
+      <pre><code>$('.default h1').inflateText();</code></pre>
 
-<div class="test max">
-<h1>..and no more than 32px</h1>
-</div>
-<pre><code>$('.max h1').inflateText({maxFontSize:32});</code></pre>
+      <div class="test scale">
+      <h1>
+        <strong class="one">scaled to 80%,</strong>
+        <em class="two">scaled to 30%,</em>
+      </h1>
+      </div>
+      <pre><code>
+      $('.scale h1 .one').inflateText({ scale:0.8 });
+      $('.scale h1 .two').inflateText({ scale:0.3 });
+      </code></pre>
 
-</div>
+      <script>
+      window.addEventListener('load', function () {
+        $('.scale h1 .one').inflateText({ scale:0.8 });
+        $('.scale h1 .two').inflateText({ scale:0.3 });
+      });
+      </script>
 
-<hr />
+      <div class="test min">
+      <h1>at least 76px</h1>
+      </div>
+      <pre><code>$('.min h1').inflateText({minFontSize:76});</code></pre>
 
-<p>Powered by <a href="https://github.com/rjz/inflateText.js">inflateText.js</a></p>
+      <div class="test max">
+      <h1>..and no more than 32px</h1>
+      </div>
+      <pre><code>$('.max h1').inflateText({maxFontSize:32});</code></pre>
 
-<script src="../bower_components/jquery/dist/jquery.js"></script>
-<script>document.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"><\/script>');</script>
-<script src="../src/inflateText.js"></script>
+    </section>
 
-<script>
-$('.default h1').inflateText();
-$('.scale h1').inflateText({scale:0.8});
-$('.min h1').inflateText({minFontSize:76});
-$('.max h1').inflateText({maxFontSize:32});
-</script>
+    <section class="container">
+
+
+      <div class="test amd-default">
+      <h1>via AMD</h1>
+      </div>
+      <pre><code>
+require(['../inflateText.js'], function (inflateText) {
+  inflateText(document.querySelector('.amd-default h1'));
+});
+      </code></pre>
+      <script>
+      window.addEventListener('load', function () {
+        require(['../inflateText.js'], function (inflateText) {
+          inflateText(document.querySelector('.amd-default h1'));
+        });
+      });
+      </script>
+
+    </section>
+
+    <section class="container">
+      <hr />
+      <p>Powered by <a href="https://github.com/rjz/inflateText.js">inflateText.js</a></p>
+    </section>
+
+  </div><!-- .content -->
+
+  <script src="../bower_components/jquery/dist/jquery.js"></script>
+  <script>document.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"><\/script>');</script>
+  <script src="../jquery.inflateText.js"></script>
+
+  <script>
+  $('.default h1').inflateText();
+  $('.scale h1').inflateText({scale:0.8});
+  $('.min h1').inflateText({minFontSize:76});
+  $('.max h1').inflateText({maxFontSize:32});
+  </script>
+
+  <script src="../bower_components/requirejs/require.js"></script>
+  <script>window.define || document.write('<script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.js>');</script>
+
 </body>
 </html>
